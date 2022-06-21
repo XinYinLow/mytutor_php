@@ -12,7 +12,7 @@ $search = $_POST['search'];
 
 $page_first_result = ($pageno - 1) * $results_per_page;
 
-$sqltutor = "SELECT tbl_tutors.*, GROUP_CONCAT(tbl_subjects.subject_name SEPARATOR ', \n') AS sub 
+$sqltutor = "SELECT tbl_tutors.*, GROUP_CONCAT(tbl_subjects.subject_name SEPARATOR ', \n') AS subName 
 FROM tbl_tutors, tbl_subjects WHERE tbl_tutors.tutor_id = tbl_subjects.tutor_id AND tbl_tutors.tutor_name LIKE '%$search%' GROUP BY tbl_tutors.tutor_id";
 $result = $conn->query($sqltutor);
 $number_of_result = $result->num_rows;
@@ -31,7 +31,7 @@ if ($result->num_rows > 0) {
         $tlist['tutor_password'] = $row['tutor_password'];
         $tlist['tutor_description'] = $row['tutor_description'];
         $tlist['tutor_datereg'] = $row['tutor_datereg'];
-        $tlist['sub'] = $row['sub'];
+        $tlist['subName'] = $row['subName'];
         array_push($tutors["tutors"],$tlist);
     }
     $response = array('status' => 'success', 'pageno'=>"$pageno",'numofpage'=>"$number_of_page", 'data' => $tutors);

@@ -21,6 +21,15 @@ if ($numrow > 0) {
         $user['ads'] = $row['users_ads'];
         $user['password'] = $row['users_password'];
     }
+    $sqlgetqty = "SELECT * FROM tbl_carts WHERE users_email = '$email' AND cart_status IS NULL";
+    $result = $conn->query($sqlgetqty);
+    $number_of_result = $result->num_rows;
+    $carttotal = 0;
+    while($row = $result->fetch_assoc()) {
+        $carttotal = $row['cart_qty'] + $carttotal;
+    }
+    $mycart = array();
+    $user['cart'] =$carttotal;
     $response = array('status' => 'success', 'data' => $user);
     sendJsonResponse($response);
 } else {

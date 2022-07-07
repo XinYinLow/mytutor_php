@@ -22,9 +22,8 @@ if ($result->num_rows > 0) {
         $slist['price'] = number_format((float)$subprice, 2, '.', '');
         $slist['cart_qty'] = $rows['cart_qty'];
         $slist['subject_id'] = $rows['subject_id'];
-        $price = $rows['cart_qty'] * $subprice;
-        $total_payable = $total_payable + $price;
-        $slist['pricetotal'] = number_format((float)$price, 2, '.', ''); 
+        $total_payable = $total_payable + $subprice;
+        $slist['pricetotal'] = number_format((float)$subprice, 2, '.', ''); 
         array_push($carts["cart"],$slist);
     }
     $response = array('status' => 'success', 'data' => $carts, 'total' => $total_payable);
